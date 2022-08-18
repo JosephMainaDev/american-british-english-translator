@@ -573,7 +573,7 @@ module.exports = {
   "fictionalizes": "fictionalises",
   "fictionalizing": "fictionalising",
   "filet": "fillet",
-  "fileted": "filleted",Mrs
+  "fileted": "filleted",
   "fileting": "filleting",
   "filets": "fillets",
   "finalization": "finalisation",

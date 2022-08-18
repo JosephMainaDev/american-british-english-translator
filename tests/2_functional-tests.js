@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 let Translator = require('../components/translator.js');
 
 suite('Functional Tests', () => {
-  test('#1', () => {
+  test('#1 Text and locale fields', () => {
     chai.request(server)
       .post('/api/translate')
       .send({ text: 'Mangoes are my favorite fruit.', locale: 'american-to-british' })
@@ -59,7 +59,8 @@ suite('Functional Tests', () => {
       .send({ text: 'This is a sentence.', locale: 'british-to-american' })
       .end((err, res) => {
         assert.equal(res.status, 200);
-        assert.deepEqual(res.body, { translation: 'Everything looks good to me!' });
+        // assert.deepEqual(res.body, { translation: 'Everything looks good to me!' });
+        assert.deepEqual(res.body.translation, 'Everything looks good to me!');
       })
   });
 });
