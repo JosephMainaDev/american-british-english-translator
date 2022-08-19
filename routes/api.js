@@ -16,8 +16,14 @@ module.exports = function (app) {
         return res.json({ error: 'No text to translate' });
       }
 
-      if (!['american-to-british', 'british-to-american'].incluldes(req.body.locale)) {
+      if (['american-to-british', 'british-to-american'].indexOf(req.body.locale) == -1) {
         return res.json({ error: 'Invalid value for locale field' });
+      }
+
+      if (req.body.locale == 'american-to-british') {
+        res.json(translator.americanToBritish(req.body.text));
+      } else {
+        res.json(translator.britishToAmerican(req.body.text));
       }
     });
 };
