@@ -37,14 +37,30 @@ class Translator {
     return newWord;
   }
 
-  toAmericanTitle() {}
+  toAmericanTitle(text) {
+    let textCopy = text.toLowerCase().split(' ');
+    text = text.split(' ');
+    for (const [key, value] of Object.entries(americanToBritishTitles)) {
+      if (textCopy.includes(value)) {
+        const index = textCopy.indexOf(value);
+        text[index] = this.matchCase(text[index], key);
+      }
+    }
+    
+    return text.join(' ');
+  }
   
   toBritishTitle(text) {
-    text = text.split(' ');
-    for (let title in americanToBritishTitles) {
-      console.log(title);
-      console.log(americanToBritishTitles[title]);
+    let textCopy = text.toLowerCase().split(' ');
+    let text = text.split(' ');
+    for (const [key, value] of Object.entries(americanToBritishTitles)) {
+      if (textCopy.includes(key)) {
+        const index = textCopy.indexOf(key);
+        text[index] = this.matchCase(text[index], value);
+      }
     }
+    
+    return textArr.join(' ');
   }
 
   highlight() {}
