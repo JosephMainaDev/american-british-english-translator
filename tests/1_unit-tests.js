@@ -6,12 +6,11 @@ const translator = new Translator();
 
 suite('Unit Tests', () => {
   test('#1', () => {
-    console.log(translator.toAmericanTitle('Dr Mash today.'));
-    console.log(translator.toAmericanTitle('Julie is a Prof of all.'));
-    console.log(translator.toAmericanTitle('Julie is a prof. of all.'));
-    
-    console.log(translator.toBritishTitle('Mash is Mrs.'));
-    console.log(translator.toBritishTitle('Julie is a prof. of all.'));
-    console.log(translator.toBritishTitle('Julie is of all.'));
+    console.log(translator.britishOnlyToAmerican('just black pudding foods'));
+    console.log(translator.britishOnlyToAmerican('this be good'));
+    console.log(translator.britishOnlyFromAmerican('this new answering machine from america'));
+    console.log(translator.britishOnlyFromAmerican('very an incompetent or foolish person of all time'));
+    console.log(translator.translate('very an incompetent or foolish person of all time'));
+    console.log(translator.translate('get a provisional driving licence'));
   });
 });

@@ -13,7 +13,7 @@ class Translator {
     if (match) return text.replace(time, match[1] + '.' + match[2]);
     return text;
   }
-  
+
   toAmericanTime(text) {
     /**
     * Converts time in [text] from British format '12.30' to American format '12:30'
@@ -46,28 +46,86 @@ class Translator {
         text[index] = this.matchCase(text[index], key);
       }
     }
-    
     return text.join(' ');
   }
-  
+
   toBritishTitle(text) {
     let textCopy = text.toLowerCase().split(' ');
-    let text = text.split(' ');
+    text = text.split(' ');
     for (const [key, value] of Object.entries(americanToBritishTitles)) {
       if (textCopy.includes(key)) {
         const index = textCopy.indexOf(key);
         text[index] = this.matchCase(text[index], value);
       }
     }
-    
     return textArr.join(' ');
   }
 
-  highlight() {}
-  
-  britishToAmerican(text) {}
-  
+  britishOnlyToAmerican(text) {
+    /**
+    * Converts British-only phrases to American phrases.
+    */
+    for (let [key, value] of Object.entries(britishOnly)) {
+      if (text.includes(key)) {
+        text = text.split(key);
+        return text[0] + value + text[1];
+      }
+    }
+    return text;
+  }
+
+  britishOnlyFromAmerican(text) {
+    /**
+    * Converts American phrases to British-only phrases.
+    */
+    for (let [key, value] of Object.entries(britishOnly)) {
+      if (text.includes(value)) {
+        text = text.split(value);
+        return text[0] + key + text[1];
+      }
+    }
+    return text;
+  }
+
+  phraseFrom(text, file) {
+    /**
+    * Translates [text] depending on the [file] used
+    * If file == britishOnly, text is converted from British to American
+    * If file == americanOnly, text is converted from American to British
+    */
+    for (let [key, value] of Object.entries(file)) {
+      if (text.includes(key)) {
+        text = text.split(key);
+        return text[0] + value + text[1];
+      }
+    }
+    return text;
+  }
+
+  phraseTo(text, file) {
+    /**
+    * Translates [text] depending on the [file] used
+    * If file == britishOnly, text is converted from American to British
+    * If file == americanOnly, text is converted from British to American
+    */
+    for (let [key, value] of Object.entries(file)) {
+      if (text.includes(value)) {
+        text = text.split(value);
+        return text[0] + key + text[1];
+      }
+    }
+    return text;
+  }
+
+  britishToAmerican(text) {} 
+
   americanToBritish(text) {}
+
+  highlight() {}
+
+  translate(text) {
+    return this.phraseFrom(text, britishOnly);
+  }
 }
 
 module.exports = Translator;
