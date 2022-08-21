@@ -38,6 +38,9 @@ class Translator {
   }
 
   toAmericanTitle(text) {
+    /**
+    * Translates British titles {Mr, dr, prof} to American titles {Mr., dr., prof.}
+    */
     let textCopy = text.toLowerCase().split(' ');
     text = text.split(' ');
     for (const [key, value] of Object.entries(americanToBritishTitles)) {
@@ -50,6 +53,9 @@ class Translator {
   }
 
   toBritishTitle(text) {
+    /**
+    * Translates American titles {Mr., dr., prof.} etc to British equivalent {Mr, dr, prof}
+    */
     let textCopy = text.toLowerCase().split(' ');
     text = text.split(' ');
     for (const [key, value] of Object.entries(americanToBritishTitles)) {
@@ -59,32 +65,6 @@ class Translator {
       }
     }
     return textArr.join(' ');
-  }
-
-  britishOnlyToAmerican(text) {
-    /**
-    * Converts British-only phrases to American phrases.
-    */
-    for (let [key, value] of Object.entries(britishOnly)) {
-      if (text.includes(key)) {
-        text = text.split(key);
-        return text[0] + value + text[1];
-      }
-    }
-    return text;
-  }
-
-  britishOnlyFromAmerican(text) {
-    /**
-    * Converts American phrases to British-only phrases.
-    */
-    for (let [key, value] of Object.entries(britishOnly)) {
-      if (text.includes(value)) {
-        text = text.split(value);
-        return text[0] + key + text[1];
-      }
-    }
-    return text;
   }
 
   phraseFrom(text, file) {
@@ -117,14 +97,70 @@ class Translator {
     return text;
   }
 
-  britishToAmerican(text) {} 
+  britishSpelling(text) {
+    /**
+    * Translates [text] from American to British
+    */
+    text = text.split(' ');
+    let index = null;
+    let originalWord = null;
+    for (let word of text) {
+      if (word.toLowerCase() in americanToBritishSpelling) {
+        index = text.indexOf(word);
+        originalWord = text[index];
+        text[index] = this.matchCase(originalWord, americanToBritishSpelling[word.toLowerCase()]);
+      }
+    }
+    return text.join(' ');
+  }
+  
+  americanSpelling(text) {
+    /**
+    * Translates [text] from British to American
+    */
+    text = text.split(' ');
+    let index = null;
+    let originalWord = null;
+    for (let word of text) {
+      if (Object.values(americanToBritishSpelling).includes(word.toLowerCase())) {
+        const newWord = Object.keys(americanToBritishSpelling)
+        .find(key => americanToBritishSpelling[key] === word.toLowerCase());
+        index = text.indexOf(word);
+        originalWord = text[index];
+        text[index] = this.matchCase(originalWord, newWord);
+      }
+    }
+    return text.join(' ');
+  }
 
-  americanToBritish(text) {}
+  americanToBritish(text) {
+    /**
+    * Translates [text] from American to British
+    */
+    text = this.toBritishTime(text);
+    text = this.toBritishTitle(text);
+    text = this.phraseFrom(text, americanOnly);
+    text = this.phraseTo(text, britishOnly);
+    text = this.britishSpelling(text);
+    return text;
+  }
+  
+  britishToAmerican(text) {
+    /**
+    * Translates [text] from British to American
+    */
+    text = this.toAmericanTime(text);
+    text = this.toAmericanTitle(text);
+    text = this.phraseFrom(text, britishOnly);
+    text = this.phraseTo(text, americanOnly);
+    text = this.americanSpelling(text);
+    return text;
+  }
 
   highlight() {}
 
-  translate(text) {
-    return this.phraseFrom(text, britishOnly);
+  translate(text, locale) {
+    //
   }
 }
 
