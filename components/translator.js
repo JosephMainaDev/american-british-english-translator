@@ -64,7 +64,7 @@ class Translator {
         text[index] = this.matchCase(text[index], value);
       }
     }
-    return textArr.join(' ');
+    return text.join(' ');
   }
 
   phraseFrom(text, file) {
@@ -140,7 +140,7 @@ class Translator {
     text = this.toBritishTime(text);
     text = this.toBritishTitle(text);
     text = this.phraseFrom(text, americanOnly);
-    text = this.phraseTo(text, britishOnly);
+    // text = this.phraseTo(text, britishOnly);
     text = this.britishSpelling(text);
     return text;
   }
@@ -152,21 +152,24 @@ class Translator {
     text = this.toAmericanTime(text);
     text = this.toAmericanTitle(text);
     text = this.phraseFrom(text, britishOnly);
-    text = this.phraseTo(text, americanOnly);
+    // text = this.phraseTo(text, americanOnly);
     text = this.americanSpelling(text);
     return text;
   }
-
-  highlight() {}
 
   translate(text, locale) {
     /**
     * Returns [text] translated to [locale]
     */
-    return locale === 'american-to-british' ?
+    // text ends with a '.' or '?'
+    let mark = text.slice(-1);
+    text = text.slice(0, -1);
+    return (locale === 'american-to-british' ?
       this.americanToBritish(text) :
-      this.britishToAmerican(text);
+      this.britishToAmerican(text)) + mark;
   }
+
+  highlight(text, translation) {}
 }
 
 module.exports = Translator;
