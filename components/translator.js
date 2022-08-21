@@ -69,7 +69,7 @@ class Translator {
 
   phraseFrom(text, file) {
     /**
-    * Translates [text] depending on the [file] used
+    * Translates word(s) in [text] depending on the [file] used
     * If file == britishOnly, text is converted from British to American
     * If file == americanOnly, text is converted from American to British
     */
@@ -84,7 +84,7 @@ class Translator {
 
   phraseTo(text, file) {
     /**
-    * Translates [text] depending on the [file] used
+    * Translates word(s) in [text] depending on the [file] used
     * If file == britishOnly, text is converted from American to British
     * If file == americanOnly, text is converted from British to American
     */
@@ -99,7 +99,7 @@ class Translator {
 
   britishSpelling(text) {
     /**
-    * Translates [text] from American to British
+    * Translates words in [text] from American to British
     */
     text = text.split(' ');
     let index = null;
@@ -116,7 +116,7 @@ class Translator {
   
   americanSpelling(text) {
     /**
-    * Translates [text] from British to American
+    * Translates words in [text] from British to American
     */
     text = text.split(' ');
     let index = null;
@@ -160,7 +160,12 @@ class Translator {
   highlight() {}
 
   translate(text, locale) {
-    //
+    /**
+    * Returns [text] translated to [locale]
+    */
+    return locale === 'american-to-british' ?
+      this.americanToBritish(text) :
+      this.britishToAmerican(text);
   }
 }
 
