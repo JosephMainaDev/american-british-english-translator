@@ -74,9 +74,10 @@ class Translator {
     * If file == americanOnly, text is converted from American to British
     */
     for (let [key, value] of Object.entries(file)) {
-      if (text.includes(key)) {
-        text = text.split(key);
-        return text[0] + value + text[1];
+      const re = new RegExp(`(?<!-)\\b${key}\\b`, 'i');
+      if (re.test(text)) {
+        text = text.split(re);
+        text = text[0] + value + text[1];
       }
     }
     return text;
@@ -140,8 +141,8 @@ class Translator {
     text = this.toBritishTime(text);
     text = this.toBritishTitle(text);
     text = this.phraseFrom(text, americanOnly);
-    // text = this.phraseTo(text, britishOnly);
     text = this.britishSpelling(text);
+    // text = this.phraseTo(text, britishOnly);
     return text;
   }
   
@@ -152,8 +153,8 @@ class Translator {
     text = this.toAmericanTime(text);
     text = this.toAmericanTitle(text);
     text = this.phraseFrom(text, britishOnly);
-    // text = this.phraseTo(text, americanOnly);
     text = this.americanSpelling(text);
+    // text = this.phraseTo(text, americanOnly);
     return text;
   }
 

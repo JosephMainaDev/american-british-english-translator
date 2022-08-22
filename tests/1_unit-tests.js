@@ -103,42 +103,42 @@ suite('Unit Tests', () => {
     );
   });
 
-  test('#15 Multiple words American to British', () => {
+  test('#15 Multiple words British to American', () => {
     assert.equal(
       translator.translate('I had a bicky then went to the chippy.', 'british-to-american'),
       'I had a cookie then went to the fish-and-chip shop.'
     );
   });
 
-  test('#16 Multiple words American to British', () => {
+  test('#16 Multiple words British to American', () => {
     assert.equal(
       translator.translate("I've just got bits and bobs in my bum bag.", 'british-to-american'),
       "I've just got odds and ends in my fanny pack."
     );
   });
 
-  test('#17 Multiple words American to British', () => {
+  test('#17 Multiple words British to American', () => {
     assert.equal(
       translator.translate('The car boot sale at Boxted Airfield was called off.', 'british-to-american'),
       'The swap meet at Boxted Airfield was called off.'
     );
   });
 
-  test('#18 Title American to British', () => {
+  test('#18 Title British to American', () => {
     assert.equal(
       translator.translate('Have you met Mrs Kalyani?', 'british-to-american'),
       'Have you met Mrs. Kalyani?'
     );
   });
 
-  test('#19 Title American to British', () => {
+  test('#19 Title British to American', () => {
     assert.equal(
       translator.translate("Prof Joyner of King's College, London.", 'british-to-american'),
       "Prof. Joyner of King's College, London."
     );
   });
 
-  test('#20 Time American to British', () => {
+  test('#20 Time British to American', () => {
     assert.equal(
       translator.translate('Tea time is usually around 4 or 4.30.', 'british-to-american'),
       'Tea time is usually around 4 or 4:30.'
