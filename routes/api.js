@@ -20,10 +20,10 @@ module.exports = function (app) {
         return res.json({ error: 'Invalid value for locale field' });
       }
 
-      if (req.body.locale == 'american-to-british') {
-        res.json(translator.americanToBritish(req.body.text));
-      } else {
-        res.json(translator.britishToAmerican(req.body.text));
-      }
+      // Translate [text] according to [locale]
+      let translation = translator.translate(req.body.text, req.body.locale);
+      translation = translator.highlight(translation, req.body.text);
+      
+      return res.json({ text: req.body.text, translation });
     });
 };
