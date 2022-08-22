@@ -139,37 +139,41 @@ suite('Unit Tests', () => {
   });
 
   test('#20 Time British to American', () => {
+    const text = 'Tea time is usually around 4 or 4.30.';
+    const locale = 'british-to-american'
+    const translation = 'Tea time is usually around 4 or 4:30.';
+    assert.equal(translator.translate(text, locale), translation);
+  });
+
+  test('#21 Highlight single word American to British', () => {
+    const text = 'Mangoes are my favorite fruit.';
+    const highlighted = 'Mangoes are my <span class="highlight">favourite</span> fruit.';
     assert.equal(
-      translator.translate('Tea time is usually around 4 or 4.30.', 'british-to-american'),
-      'Tea time is usually around 4 or 4:30.'
+      translator.highlight(translator.translate(text, 'american-to-british'), text), highlighted
     );
   });
 
-  test('#21 Single word American to British', () => {
+  test('#22 Highlight single word American to British', () => {
+    const text = 'I ate yogurt for breakfast.';
+    const highlighted = 'I ate <span class="highlight">yoghurt</span> for breakfast.';
     assert.equal(
-      translator.translate("", 'american-to-british'),
-      ""
+      translator.highlight(translator.translate(text, 'american-to-british'), text), highlighted
     );
   });
 
-  test('#22 Single word American to British', () => {
+  test('#23 Highlight single word British to American', () => {
+    const text = 'We watched the footie match for a while.';
+    const highlighted = 'We watched the <span class="highlight">soccer</span> match for a while.';
     assert.equal(
-      translator.translate("", 'american-to-british'),
-      ""
+      translator.highlight(translator.translate(text, 'british-to-american'), text), highlighted
     );
   });
 
-  test('#23 Single word American to British', () => {
+  test('#23 Highlight single word British to American', () => {
+    const text = 'Paracetamol takes up to an hour to work.';
+    const highlighted = '<span class="highlight">Tylenol</span> takes up to an hour to work.';
     assert.equal(
-      translator.translate("", 'american-to-british'),
-      ""
-    );
-  });
-
-  test('#24 Single word American to British', () => {
-    assert.equal(
-      translator.translate("", 'american-to-british'),
-      ""
+      translator.highlight(translator.translate(text, 'british-to-american'), text), highlighted
     );
   });
 });

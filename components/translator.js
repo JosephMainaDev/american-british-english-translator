@@ -170,7 +170,28 @@ class Translator {
       this.britishToAmerican(text)) + mark;
   }
 
-  highlight(text, translation) {}
+  highlight(translation, text) {
+    /**
+    * Checks the translated word(s) in [translation] and adds <span class="highlight">[word]</span>
+    */
+    // No translation required!
+    if (text === translation) return 'Everything looks good to me!';
+
+    // Remove the mark at end of the sentence
+    let mark = text.slice(-1);
+    text = text.slice(0, -1);
+    translation = translation.slice(0, -1);
+  
+    text = text.split(' ');
+    translation = translation.split(' ');
+    for (const word of translation) {
+      if (!text.includes(word)) {
+        let index = translation.indexOf(word);
+        translation[index] = `<span class="highlight">${word}</span>`;
+      }
+    }
+    return translation.join(' ') + mark;
+  }
 }
 
 module.exports = Translator;
